@@ -4,16 +4,79 @@
   "description": "Ci",
   "main": "index.js",
   "bin": {
-    "gema": "bin/ci"
+    "ci": "bin/ci"
   },
-  "dependencies": {
-    "event-stream": "^4.0.1",
-    "git-raw-commits": "^2.0.3",
-    "ramda": "^0.27.0"
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "jest --coverage .",
+    "tdd": "npm run test -- --watch",
+    "serve:coverage": "live-server coverage/lcov-report"
   },
-  "scripts": {},
   "repository": {},
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Maurice Domínguez",
+  "license": "ISC",
+  "dependencies": {
+    "crocks": "^0.12.4",
+    "debug": "^4.1.1",
+    "event-stream": "^4.0.1",
+    "git-raw-commits": "^2.0.3",
+    "ramda": "^0.27.0",
+    "semver": "^6.2.0"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-xo": "^0.29.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "live-server": "^1.2.1",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": 2,
+      "capitalized-comments": 0,
+      "new-cap": 0
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
