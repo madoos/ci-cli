@@ -22,7 +22,8 @@
     "event-stream": "^4.0.1",
     "git-raw-commits": "^2.0.3",
     "ramda": "^0.27.0",
-    "semver": "^6.2.0"
+    "semver": "^6.2.0",
+    "toposort": "^2.0.2"
   },
   "devDependencies": {
     "jest": "^25.3.0",
